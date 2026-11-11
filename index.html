@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Пошаговые решения — практические руководства и шаблоны документов</title>
+<meta name="description" content="Практические руководства, чек-листы и шаблоны документов. Первое руководство: что делать продавцу Wildberries при жалобе правообладателя и блокировке карточки товара.">
+<!--
+  ЧТО ЗАМЕНИТЬ ПЕРЕД ПУБЛИКАЦИЕЙ И ПОСЛЕ ПОДКЛЮЧЕНИЯ ОПЛАТЫ:
+  1. Ссылки оплаты: найдите три кнопки с классом "buy" и замените href на ссылки платёжной страницы.
+     Пока ссылок нет, кнопки ведут в Telegram-канал.
+  2. Контакт для покупателей: найдите id="contact" и при необходимости замените на почту или аккаунт.
+-->
+<style>
+:root{--ink:#14213d;--mute:#5b6577;--line:#dfe3ea;--tint:#f4f6fa;--acc:#2f5bea;--acc-d:#1e3fb0;--acc-l:#e8eeff;--warn-l:#fff6e0;--warn:#b7791f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;color:var(--ink);background:#fff}
+a{color:var(--acc-d)}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+header{background:var(--ink);color:#fff}
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px;color:#fff;text-decoration:none}
+.logo{display:flex;align-items:flex-end;gap:3px;height:28px}
+.logo i{display:block;width:8px;border-radius:2px}
+.logo i:nth-child(1){height:9px;background:#7f97f2}.logo i:nth-child(2){height:15px;background:#5577ee}
+.logo i:nth-child(3){height:21px;background:#2f5bea}.logo i:nth-child(4){height:28px;background:#fff}
+.top nav a{color:#c9d2e3;text-decoration:none;margin-left:18px;font-size:15px}
+.top nav a:hover{color:#fff}
+.hero{padding:56px 0 64px}
+.kicker{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(255,255,255,.35);border-radius:99px;padding:5px 12px;margin-bottom:18px}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.1;letter-spacing:-.02em;margin:0 0 18px;max-width:780px}
+.lead{font-size:18px;color:#d9e0ee;max-width:700px;margin:0 0 28px}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:650;padding:13px 22px;border-radius:10px}
+.btn:hover{background:var(--acc-d)}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.4);margin-left:10px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:40px}
+.stats div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:16px}
+.stats b{display:block;font-size:32px;line-height:1;margin-bottom:8px}
+.stats span{font-size:14px;color:#c9d2e3;line-height:1.35;display:block}
+section{padding:56px 0}
+section.alt{background:var(--tint)}
+h2{font-size:28px;line-height:1.2;letter-spacing:-.01em;margin:0 0 10px}
+.sub{color:var(--mute);margin:0 0 28px;max-width:720px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.card h3{margin:0 0 6px;font-size:17px}
+.card p{margin:0;color:var(--mute);font-size:15px}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:0;margin:0;list-style:none}
+.steps li{counter-increment:s;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 18px 16px}
+.steps li::before{content:counter(s);display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--acc);color:#fff;font-weight:700;margin-bottom:10px}
+.steps b{display:block;margin-bottom:4px}
+.steps span{color:var(--mute);font-size:15px}
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+.price{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column}
+.price.main{border:2px solid var(--acc)}
+.price h3{margin:0 0 4px;font-size:18px}
+.price .sum{font-size:32px;font-weight:750;margin:6px 0 10px}
+.price ul{margin:0 0 18px;padding-left:18px;color:var(--mute);font-size:15px;flex:1}
+.price li{margin-bottom:5px}
+.price .btn{text-align:center}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--acc-d);background:var(--acc-l);border-radius:99px;padding:3px 10px;margin-bottom:8px;align-self:flex-start}
+.note{background:var(--warn-l);border-left:4px solid var(--warn);border-radius:10px;padding:14px 18px;font-size:15px;margin-top:24px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.two ul{margin:0;padding-left:20px}
+.two li{margin-bottom:7px}
+.terms p{margin:0 0 12px;font-size:15px}
+.seller{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:22px}
+.seller b{display:block;font-size:17px}
+footer{background:var(--ink);color:#aebbd6;font-size:14px;padding:28px 0}
+footer a{color:#fff}
+@media(max-width:760px){
+  .stats{grid-template-columns:repeat(2,1fr)}.grid,.steps,.prices,.two{grid-template-columns:1fr}
+  .top nav{display:none}.btn.ghost{margin:10px 0 0}section{padding:40px 0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="#"><span class="logo"><i></i><i></i><i></i><i></i></span>Пошаговые решения</a>
+      <nav><a href="#inside">Что внутри</a><a href="#prices">Цены</a><a href="#terms">Условия</a></nav>
+    </div>
+    <div class="hero">
+      <div class="kicker">Первое руководство серии</div>
+      <h1>Алгоритм разблокировки карточки товара на Wildberries</h1>
+      <p class="lead">Пришла жалоба правообладателя или карточку уже заблокировали? Руководство показывает, что делать и в каком порядке, и даёт готовые шаблоны ответа. Ответ с документами можно подготовить за один рабочий день.</p>
+      <a class="btn" href="#prices">Смотреть цены</a>
+      <a class="btn ghost" href="https://t.me/poshagovo_guide">Telegram-канал</a>
+      <div class="stats">
+        <div><b>6</b><span>шагов от жалобы до претензии</span></div>
+        <div><b>7</b><span>шаблонов ответа под типы жалоб</span></div>
+        <div><b>5</b><span>чек-листов документов</span></div>
+        <div><b>22</b><span>страницы PDF с инфографикой</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Как устроено руководство</h2>
+    <p class="sub">Это маршрут: вы идёте по шагам и пропускаете то, что к вашей жалобе не относится.</p>
+    <ol class="steps">
+      <li><b>Определяете тип жалобы</b><span>Таблица из семи типов с примерами: товарный знак, оригинальный товар, фото и дизайн, договор с правообладателем.</span></li>
+      <li><b>Проверяете заявителя</b><span>Инструкция по открытому реестру ФИПС: статус знака, правообладатель, перечень товаров, дата приоритета.</span></li>
+      <li><b>Собираете документы</b><span>Чек-лист под ваш тип жалобы, чтобы каждый довод был подтверждён вложением.</span></li>
+      <li><b>Заполняете шаблон</b><span>Один шаблон ответа из семи: позиция, факты, норма, требование, приложения.</span></li>
+      <li><b>Подаёте и следите за сроком</b><span>План по дням и текст на случай ответа «документов недостаточно».</span></li>
+      <li><b>Направляете претензию</b><span>Если карточку всё же заблокировали: шаблон досудебной претензии и методика расчёта убытков.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="alt" id="inside">
+  <div class="wrap">
+    <h2>Что внутри</h2>
+    <p class="sub">Редакция: ноябрь 2026 года, с учётом порядка подачи претензий, действующего с 1 октября 2026 года.</p>
+    <div class="grid">
+      <div class="card"><h3>Действия первого часа</h3><p>Что зафиксировать сразу и чего не делать: не платить заявителю, не править карточку в панике, не отвечать без вложений.</p></div>
+      <div class="card"><h3>Семь шаблонов ответа</h3><p>Под каждый тип жалобы, с полями для заполнения и списком приложений.</p></div>
+      <div class="card"><h3>Пять чек-листов документов</h3><p>Общий и по типам: товарный знак, оригинальный товар, фото и дизайн, разрешение правообладателя.</p></div>
+      <div class="card"><h3>Досудебная претензия</h3><p>Шаблон, порядок подачи через Портал продавца, сроки ответа и расчёт упущенной выгоды.</p></div>
+      <div class="card"><h3>Если жалоба обоснована</h3><p>Как устранить нарушение и вернуть карточку в продажу с минимальными потерями.</p></div>
+      <div class="card"><h3>Типичные ошибки и правовая база</h3><p>Двенадцать ошибок, из-за которых проигрывают споры, и нормы, на которые опираются шаблоны.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap two">
+    <div>
+      <h2>Кому подойдёт</h2>
+      <ul>
+        <li>Продавцу Wildberries, получившему жалобу правообладателя в «Цифровом арбитраже».</li>
+        <li>Продавцу, у которого карточку уже заблокировали по такой жалобе.</li>
+        <li>Менеджеру или помощнику, который ведёт кабинет и отвечает на обращения.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Кому не подойдёт</h2>
+      <ul>
+        <li>Спор о патенте на промышленный образец, полезную модель или изобретение.</li>
+        <li>Заблокирован весь кабинет, а не отдельные карточки.</li>
+        <li>Штрафы и удержания, не связанные с жалобами правообладателей.</li>
+        <li>Правообладатель уже подал иск: здесь нужен юрист.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="prices">
+  <div class="wrap">
+    <h2>Цены</h2>
+    <p class="sub">Материалы электронные. Ссылка на файлы приходит на почту сразу после оплаты.</p>
+    <div class="prices">
+      <div class="price">
+        <h3>Руководство</h3>
+        <div class="sum">1 490 ₽</div>
+        <ul>
+          <li>PDF, 22 страницы</li>
+          <li>7 шаблонов ответа</li>
+          <li>5 чек-листов</li>
+          <li>Шаблон претензии</li>
+        </ul>
+        <a class="btn buy" href="https://t.me/poshagovo_guide">Купить руководство</a>
+      </div>
+      <div class="price main">
+        <span class="tag">Выгоднее на 490 ₽</span>
+        <h3>Комплект</h3>
+        <div class="sum">1 990 ₽</div>
+        <ul>
+          <li>Руководство</li>
+          <li>Калькулятор упущенной выгоды (Excel)</li>
+          <li>Заявление в ФАС с памяткой (Word)</li>
+        </ul>
+        <a class="btn buy" href="https://t.me/poshagovo_guide">Купить комплект</a>
+      </div>
+      <div class="price">
+        <h3>Расширенный пакет</h3>
+        <div class="sum">990 ₽</div>
+        <ul>
+          <li>Калькулятор упущенной выгоды: до 15 артикулов, лист-приложение к претензии</li>
+          <li>Шаблон заявления в ФАС по ст. 14.4 закона «О защите конкуренции» с памяткой</li>
+        </ul>
+        <a class="btn buy" href="https://t.me/poshagovo_guide">Купить пакет</a>
+      </div>
+    </div>
+    <div class="note"><b>Важно.</b> Материалы носят информационный характер, не являются юридической консультацией и не гарантируют разблокировку карточки: решение принимает маркетплейс. Правила площадки меняются, поэтому перед отправкой ответа сверяйте сроки с самим обращением и действующей офертой в кабинете продавца.</div>
+  </div>
+</section>
+
+<section id="terms">
+  <div class="wrap terms">
+    <h2>Продавец и условия покупки</h2>
+    <div class="seller">
+      <b>Вьюн Александр Владимирович</b>
+      ИНН 251001451140<br>
+      Плательщик налога на профессиональный доход (самозанятый)<br>
+      <span id="contact">Связь: Telegram-канал <a href="https://t.me/poshagovo_guide">@poshagovo_guide</a></span>
+    </div>
+    <p><b>Что вы покупаете.</b> Электронные материалы в форматах PDF, XLSX и DOCX, описанные на этой странице. Ссылка на файлы приходит на адрес, указанный при оплате, сразу после оплаты.</p>
+    <p><b>Характер материалов.</b> Материалы носят информационный характер и не являются индивидуальной юридической консультацией. Продавец не оказывает юридических услуг и не представляет интересы покупателя.</p>
+    <p><b>Результат не гарантируется.</b> Решение по жалобе и претензии принимают маркетплейс, антимонопольный орган или суд. Продавец не гарантирует разблокировку карточки, отклонение жалобы или взыскание убытков и не отвечает за последствия применения материалов.</p>
+    <p><b>Актуальность.</b> Материалы подготовлены по состоянию на дату редакции, указанную в описании. Перед использованием покупатель сверяет сроки и порядок действий с действующей офертой маркетплейса.</p>
+    <p><b>Обновления.</b> В течение 6 месяцев с даты покупки покупатель может бесплатно получить обновлённую редакцию купленных материалов по запросу.</p>
+    <p><b>Возврат.</b> Если файл не пришёл, не открывается или не соответствует описанию, напишите продавцу в течение 7 дней после оплаты: проблема будет исправлена или деньги возвращены. В остальных случаях оплата за полученные электронные материалы не возвращается.</p>
+    <p><b>Использование.</b> Материалы предназначены для использования покупателем в собственной деятельности. Перепродажа, публикация и передача файлов третьим лицам без согласия продавца не допускаются.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Пошаговые решения · практические руководства и шаблоны документов · <a href="https://t.me/poshagovo_guide">Telegram</a><br>
+    Проект не связан с Wildberries и не является официальным сервисом площадки. Название площадки используется только для описания темы руководства.
+  </div>
+</footer>
+
+</body>
+</html>
